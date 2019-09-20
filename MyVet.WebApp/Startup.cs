@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MyVet.Web.Data;
 using MyVet.Web.Helpers;
 using MyVet.WebApp.Data.Entities;
+using MyVet.WebApp.Helpers;
 
 namespace MyVet.WebApp
 {
@@ -53,6 +54,10 @@ namespace MyVet.WebApp
             services.AddTransient<SeedDb>();
 
             services.AddScoped<IUserHelper, UserHelper>();
+            services.AddScoped<ICombosHelper, CombosHelper>();
+            services.AddScoped<IConverterHelper, ConverterHelper>();
+            services.AddScoped<IImageHelper, ImageHelper>();
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -72,8 +77,9 @@ namespace MyVet.WebApp
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
             app.UseAuthentication();
+            app.UseCookiePolicy();
+            
 
             app.UseMvc(routes =>
             {
